@@ -1,0 +1,21 @@
+# CF EC2 parameters
+cf_ec2_parameters:
+  AMI: "{{ ami_win_reference }}"
+  InstanceName: "{{ item }}"
+  InstanceType: "{{ cf_default_instance_type }}"
+  SecurityStackName: "{{ proj_prefix | lower }}-SG-{{ ENVNAME | lower }}"
+  EC2SecurityGroupName: "aruba"
+  Schedule: "{{ project_schedule  | d('07,19,5') }}"
+  SubnetIDs: "{{ cf_subnets[ 'vpc03' ] }}"
+  IAMRole: "{{ iam_role_ciscorem_app_server.name }} "
+  Keypair: "{{ ENVNAME }}-CiscoRem"
+  KmsKeyId: "{{ aruba_diskkmskeyid }}"
+  HostedZone: "{{ vpcs.vpc03.address }}"
+  S3SourceBucketName: "{{cf_template_bucket}}"
+  LocalUser: "{{ansible_win_user}}"
+  CfPassword: "{{ solarwnd_ncmapp_pass }}"
+  DriveScriptArgs: '-Confirm true'
+  ExisitingSGs: "{{ cf_existing_sgs['vpc03'] }}"
+  NumServers: 2
+  ProxyServer: "proxyelb01.{{ vpcs.vpc03.address }}:3128"
+  RootVolumeSize: 64

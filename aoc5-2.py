@@ -45,7 +45,7 @@ for letter in range(97,123):
     test_data = remove_unit(polymer, unit)
     while repeat == 1:
         test_data = iterate_polymer(test_data)
-    results[unit] = len(test_data)
+    results[unit] = len(test_data.strip())
 
 print(results)
 
